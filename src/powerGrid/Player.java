@@ -58,30 +58,30 @@ public class Player {
 	
 	public void buyResource(String type, PowerPlantCard a) {
 		if(type.equals("coal")) {
-			if(//amount is less than cash){
-				if(a.resourceType.equals("coal") && a.numResources < a.numRequiredResources * 2) {
-					cash -= //amount for coal;
+			if(amount is less than cash){
+				if(a.getResourceType().equals("coal") && a.getNumResources() < a.getNumRequiredResources() * 2) {
+					cash -= /*amount for coal*/;
 					a.addResource();
 				}
 			}
 		} else if(type.equals("oil")) {
-			if(//amount is less than cash){
-				if(a.resourceType.equals("oil") && a.numResources < a.numRequiredResources * 2) {
-					cash -= //amount for oil;	
+			if(amount is less than cash){
+				if(a.getResourceType().equals("oil") && a.getNumResources() < a.getNumRequiredResources() * 2) {
+					cash -= /*amount for oil*/;	
 					a.addResource();
 				}			
 			}
 		} else if(type.equals("garbage")) {
-			if(//amount is less than cash){
-				if(a.resourceType.equals("garbage") && a.numResources < a.numRequiredResources * 2) {
-					cash -= //amount for garbage;
+			if(amount is less than cash){
+				if(a.getResourceType().equals("garbage") && a.getNumResources() < a.getNumRequiredResources() * 2) {
+					cash -= /*amount for garbage*/;
 					a.addResource();
 				}			
 			}
 		} else {
-			if(//amount is less than cash){
-				if(a.resourceType.equals("uranium") && a.numResources < a.numRequiredResources * 2) {
-					cash -= //amount for uranium;
+			if(amount is less than cash){
+				if(a.getResourceType().equals("uranium") && a.getNumResources() < a.getNumRequiredResources() * 2) {
+					cash -= /*amount for uranium*/;
 					a.addResource();
 				}			
 			}
@@ -89,9 +89,9 @@ public class Player {
 	}
 	
 	public void powerPowerPlantCard(PowerPlantCard a) {
-		if(a.numResources > a.numRequiredResources) {
+		if(a.getNumResources() > a.getNumRequiredResources()) {
 			a.setPowered(true);
-			a.setNumResources(a.numResources - numRequiredResources);
+			a.setNumResources(a.getNumResources() - a.getNumRequiredResources());
 		}
 	}
 	
@@ -99,6 +99,17 @@ public class Player {
 		cards.set(index, a);
 		
 	
+	}
+	
+	public void buyPowerPlantCard(PowerPlantCard a, int cost) {
+		if(cost < cash) {
+			cash -= cost;
+			if(cards.size() == 3) {
+				replacePowerPlantCard(a, have them choose what card to replace)
+			}
+			else {
+				cards.add(a);
+			}
 	}
 	
 	
