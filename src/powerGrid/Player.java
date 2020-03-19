@@ -95,7 +95,11 @@ public class Player {
 		}
 	}
 	
+	public void replacePowerPlantCard(PowerPlantCard a, int index) {
+		cards.set(index, a);
+		
 	
+	}
 	
 	
 	
