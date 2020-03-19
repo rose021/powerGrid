@@ -56,32 +56,32 @@ public class Player {
 		}
 	}
 	
-	public void buyResource(String type, PowerPlantCard a) {
+	public void buyResource(String type, PowerPlantCard a, int cost) {
 		if(type.equals("coal")) {
-			if(amount is less than cash){
+			if(cost <= cash){
 				if(a.getResourceType().equals("coal") && a.getNumResources() < a.getNumRequiredResources() * 2) {
-					cash -= /*amount for coal*/;
+					cash -= cost;
 					a.addResource();
 				}
 			}
 		} else if(type.equals("oil")) {
-			if(amount is less than cash){
+			if(cost <= cash){
 				if(a.getResourceType().equals("oil") && a.getNumResources() < a.getNumRequiredResources() * 2) {
-					cash -= /*amount for oil*/;	
+					cash -= cost;	
 					a.addResource();
 				}			
 			}
 		} else if(type.equals("garbage")) {
-			if(amount is less than cash){
+			if(cost <= cash){
 				if(a.getResourceType().equals("garbage") && a.getNumResources() < a.getNumRequiredResources() * 2) {
-					cash -= /*amount for garbage*/;
+					cash -= cost;
 					a.addResource();
 				}			
 			}
 		} else {
-			if(amount is less than cash){
+			if(cost <= cash){
 				if(a.getResourceType().equals("uranium") && a.getNumResources() < a.getNumRequiredResources() * 2) {
-					cash -= /*amount for uranium*/;
+					cash -= cost;
 					a.addResource();
 				}			
 			}
