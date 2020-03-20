@@ -1,7 +1,7 @@
 package powerGrid;
 import java.util.*;
 public class Player {
-	private int cash, score, orderNumber;
+	private int cash, score, orderNumber, numPowerPlants;
 	private ArrayList<PowerPlantCard> cards;
 	private String color;
 	
@@ -46,15 +46,7 @@ public class Player {
 	}
 	
 	
-	public void placePowerPlant(City c) {
-		if(c.isIfInPlayableArea()) {
-			if(//edgeweight plus city amount is less than cash holdings && numPlayers on city is less than 3 ){
-				c.addPlayer(this);
-				cash -= //cityAmount + edgeWeight;
-				
-			
-		}
-	}
+	
 	
 	public void buyResource(String type, PowerPlantCard a, int cost) {
 		if(type.equals("coal")) {
@@ -102,7 +94,7 @@ public class Player {
 	}
 	
 	public void buyPowerPlantCard(PowerPlantCard a, int cost) {
-		if(cost < cash) {
+		if(cost <= cash) {
 			cash -= cost;
 			if(cards.size() == 3) {
 				replacePowerPlantCard(a, have them choose what card to replace)
