@@ -23,6 +23,10 @@ public class MyPQ<E> implements DataStructure<E> {
 		// TODO Auto-generated method stub
 		a.offer(item);
 	}
+	public E get(int i) {
+		E[] t = (E[]) a.toArray();
+		return t[i];
+	}
 	
 	public String toString() {
 		return a.toString();

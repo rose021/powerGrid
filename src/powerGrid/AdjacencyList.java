@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 public class AdjacencyList {
 
-	private ArrayList<Vertex> vertexes;
+	private ArrayList<City> cities;
 	private Scanner s;
 	
 	public AdjacencyList(String fn) throws IOException{ //takes in the file you want to be read
 
-		vertexes = new ArrayList<Vertex>();
+		cities = new ArrayList<City>();
 
 		//Scanner fscan = new Scanner(new File(fn)); //initiates file scanner
 		//while(fscan.hasNextLine()){ //while there are still lines left in the file
@@ -26,31 +26,31 @@ public class AdjacencyList {
 			String[] a = s.nextLine().split(" ");
 			
 			
-			if(getVertex(a[0]) == null || !vertexes.contains(getVertex(a[0]))) {
-				vertexes.add(new Vertex(a[0]));
-				for(int i = 0; i < vertexes.size(); i++) {
-					if(getVertex(a[1]) == null) {
-						vertexes.add(new Vertex(a[1]));
+			if(getCity(a[0]) == null || !cities.contains(getCity(a[0]))) {
+				cities.add(new City(a[0], a[1]));
+				for(int i = 0; i < cities.size(); i++) {
+					if(getCity(a[2]) == null) {
+						cities.add(new City(a[2], a[3]));
 					}
-					if(!a[0].equals(a[1])) {
-						if(vertexes.get(i).name.equals(a[0])) {
-							vertexes.get(i).add(getVertex(a[1]), Integer.parseInt(a[2]));
-						} else if(vertexes.get(i).name.equals(a[1])) {
-							vertexes.get(i).add(getVertex(a[0]), Integer.parseInt(a[2]));
+					if(!a[0].equals(a[2])) {
+						if(cities.get(i).getCityName().equals(a[0])) {
+							cities.get(i).add(getCity(a[2]), Integer.parseInt(a[4]));
+						} else if(cities.get(i).getCityName().equals(a[1])) { 
+							cities.get(i).add(getCity(a[0]), Integer.parseInt(a[4]));
 						}
 					}
 				}	
 				
 			} else {
-				for(int i = 0; i < vertexes.size(); i++) {
-					if(getVertex(a[1]) == null) {
-						vertexes.add(new Vertex(a[1]));
+				for(int i = 0; i < cities.size(); i++) {
+					if(getCity(a[2]) == null) {
+						cities.add(new City(a[2], a[3]));
 					}
 					if(!a[0].equals(a[1])) {
-						if(vertexes.get(i).name.equals(a[0])) {
-							vertexes.get(i).add(getVertex(a[1]), Integer.parseInt(a[2]));
-						} else if(vertexes.get(i).name.equals(a[1])) {
-							vertexes.get(i).add(getVertex(a[0]), Integer.parseInt(a[2]));
+						if(cities.get(i).getCityName().equals(a[0])) {
+							cities.get(i).add(getCity(a[2]), Integer.parseInt(a[4]));
+						} else if(cities.get(i).getCityName().equals(a[2])) {
+							cities.get(i).add(getCity(a[0]), Integer.parseInt(a[4]));
 						}
 					}
 				
@@ -66,9 +66,9 @@ public class AdjacencyList {
 		}
 	}
 	
-	public Vertex getVertex(String name){
-		for(Vertex a : vertexes) {
-			if(a.name.equals(name)) {
+	public City getCity(String name){
+		for(City a : cities) {
+			if(a.getCityName().equals(name)) {
 				return a;
 			}
 		}
@@ -76,32 +76,32 @@ public class AdjacencyList {
 	}
 	
 	public void reset(){
-		for(Vertex a : vertexes) {
-			a.visited = false;
+		for(City a : cities) {
+			a.setVisited(false);
 		}
 	}
 	
 	public String toString(){
 		String a = "";
-		for(Vertex b : vertexes) {
+		for(City b : cities) {
 			a += b.toString() + "\n";
 		}
 		return a;
 	}
 	
 	public int size() {
-		return vertexes.size();
+		return cities.size();
 	}
 	
 	public static void main(String[] args){
 		AdjacencyList aL = null;
 		try {
-			aL = new AdjacencyList("src/graph1.txt");
+			aL = new AdjacencyList("src/powerGrid/citylist");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		System.out.println(aL.toString());
-		System.out.println(aL.getVertex("A"));
+		System.out.println(aL.getCity("A"));
 		
 	}
 }

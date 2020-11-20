@@ -2,8 +2,6 @@ package powerGrid;
 
 import java.util.*;
 
-import GraphTheory.AdjacencyList;
-import GraphTheory.Vertex;
 public class GraphTraverser {
 	private ArrayList<Path> results;
 	
@@ -12,15 +10,15 @@ public class GraphTraverser {
 	}
 	
 	public ArrayList<Path> traverse(DataStructure<Path> ds, AdjacencyList graph, String startName){
-		Path a = new Path(graph.getVertex(startName));
+		Path a = new Path(graph.getCity(startName));
 		ds.add(a);
 		while(ds.isEmpty() == false) {
 			Path b = ds.remove();
-			Vertex e = b.getLastVertex();
+			City e = b.getLastVertex();
 			if(e.getVisited() == false) {
 				e.setVisited(true);
 				results.add(b);
-				for(Vertex c : e.allNeighbors()) {
+				for(City c : e.allNeighbors()) {
 					if(c.getVisited() == false) {
 						Path newPath = new Path(b, c);
 						ds.add(newPath);
@@ -39,16 +37,5 @@ public class GraphTraverser {
 		}
 	}
 	
-	public void printEdges() {
-		EdgeList e = new EdgeList();
-		int length = 0;
-		for(Path p : results) {
-			if(p.getNumVertexes() > 1) {
-				e.addEdge(new Edge(p.getVertex(p.getNumVertexes() - 2), p.getLastVertex(), p.getLastEdgeWeight()));
-				length += p.getLastEdgeWeight();
-			}
-		}
-		System.out.println(e);
-		System.out.println("Total: " + length);
-	}
+	
 }

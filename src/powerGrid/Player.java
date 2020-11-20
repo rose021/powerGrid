@@ -1,19 +1,38 @@
 package powerGrid;
 import java.util.*;
 public class Player {
-	private int cash, score, orderNumber, numPowerPlants;
+	private int cash, score, orderNumber, numPowerPlants, numPlantsPowered;
 	private ArrayList<PowerPlantCard> cards;
 	private String color;
+	private boolean gotCardThisRound;
 	
-	public Player() {
+	
+	public Player(String color) {
 		cash = 50;
 		score = 0;
 		orderNumber = 0;
-		color = "";
-	
+		this.color = color;
+		numPlantsPowered = 0;
+		numPowerPlants = 0;
+		gotCardThisRound = false;
+		
 		cards = new ArrayList<PowerPlantCard>();
 	}
 	
+	
+	
+	public boolean isGotCardThisRound() {
+		return gotCardThisRound;
+	}
+
+
+
+	public void setGotCardThisRound(boolean gotCardThisRound) {
+		this.gotCardThisRound = gotCardThisRound;
+	}
+
+
+
 	public int getCash() {
 		return cash;
 	}
@@ -35,8 +54,8 @@ public class Player {
 	public ArrayList<PowerPlantCard> getCards() {
 		return cards;
 	}
-	public void setCards(ArrayList<PowerPlantCard> cards) {
-		this.cards = cards;
+	public void addCard(PowerPlantCard card) {
+		cards.add(card);
 	}
 	public String getColor() {
 		return color;
@@ -45,45 +64,36 @@ public class Player {
 		this.color = color;
 	}
 	
-	
-	
-	
-	public void buyResource(String type, PowerPlantCard a, int cost) {
-		if(type.equals("coal")) {
-			if(cost <= cash){
-				if(a.getResourceType().equals("coal") && a.getNumResources() < a.getNumRequiredResources() * 2) {
-					cash -= cost;
-					a.addResource();
-				}
-			}
-		} else if(type.equals("oil")) {
-			if(cost <= cash){
-				if(a.getResourceType().equals("oil") && a.getNumResources() < a.getNumRequiredResources() * 2) {
-					cash -= cost;	
-					a.addResource();
-				}			
-			}
-		} else if(type.equals("garbage")) {
-			if(cost <= cash){
-				if(a.getResourceType().equals("garbage") && a.getNumResources() < a.getNumRequiredResources() * 2) {
-					cash -= cost;
-					a.addResource();
-				}			
-			}
-		} else {
-			if(cost <= cash){
-				if(a.getResourceType().equals("uranium") && a.getNumResources() < a.getNumRequiredResources() * 2) {
-					cash -= cost;
-					a.addResource();
-				}			
+	public int getNumPowerPlants() {
+		return numPowerPlants;
+	}
+
+	public void setNumPowerPlants(int numPowerPlants) {
+		this.numPowerPlants = numPowerPlants;
+	}
+
+	public int getNumPlantsPowered() {
+		return numPlantsPowered;
+	}
+
+	public void setNumPlantsPowered() {
+		int numPowered = 0;
+		for(int i = 0; i < cards.size(); i++) {
+			if(cards.get(i).isPowered()) {
+				numPowered += cards.get(i).getNumPoweredPlants();
+				cards.get(i).setPowered(false);
+
 			}
 		}
+		numPlantsPowered = numPowered;
 	}
+
+	
 	
 	public void powerPowerPlantCard(PowerPlantCard a) {
-		if(a.getNumResources() > a.getNumRequiredResources()) {
+		if(a.getNumResources() >= a.getNumRequiredResources()) {
 			a.setPowered(true);
-			a.setNumResources(a.getNumResources() - a.getNumRequiredResources());
+			a.useResources();
 		}
 	}
 	
@@ -93,16 +103,27 @@ public class Player {
 	
 	}
 	
-	public void buyPowerPlantCard(PowerPlantCard a, int cost) {
-		if(cost <= cash) {
-			cash -= cost;
-			if(cards.size() == 3) {
-				replacePowerPlantCard(a, have them choose what card to replace)
+	public Player compare(Player p) {
+		int max = 0;
+		Player maxPlayer = null;
+		for(int i = 0; i < cards.size(); i++) {
+			if(cards.get(i).getMinBid() > max) {
+				max = cards.get(i).getMinBid();
+				maxPlayer = this;
 			}
-			else {
-				cards.add(a);
+		}
+		
+		for(int i = 0; i < p.getCards().size(); i++) {
+			if(p.getCards().get(i).getMinBid() > max) {
+				max = cards.get(i).getMinBid();
+				maxPlayer = p;
 			}
+		}
+		
+		return maxPlayer;
 	}
+	
+	
 	
 	
 	
